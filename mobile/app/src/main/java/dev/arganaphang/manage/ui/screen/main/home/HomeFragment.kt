@@ -55,7 +55,6 @@ fun HomeFragment(navController: NavHostController = rememberAnimatedNavControlle
             ) {
                 Text("Home")
             }
-
         }
 
     }
