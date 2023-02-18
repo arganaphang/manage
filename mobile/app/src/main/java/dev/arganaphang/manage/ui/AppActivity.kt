@@ -1,4 +1,4 @@
-package dev.arganaphang.manage.ui.screen.main
+package dev.arganaphang.manage.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,13 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import dev.arganaphang.manage.routing.RootNavigationGraph
 import dev.arganaphang.manage.ui.theme.ManageTheme
 
-class MainActivity : ComponentActivity() {
+class AppActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -28,7 +29,7 @@ private fun Content() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colors.background
         ) {
-            Text("Main")
+            RootNavigationGraph(navController = rememberNavController())
         }
     }
 }
