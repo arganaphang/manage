@@ -1,15 +1,16 @@
 package dev.arganaphang.manage.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-private val darkColorPalette = darkColors(
+private val darkColorPalette = darkColorScheme(
 )
 
-private val lightColorPalette = lightColors(
+private val lightColorPalette = lightColorScheme(
+    primary = DarkGray
 )
 
 @Composable
@@ -21,7 +22,7 @@ fun ManageTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
     }
 
     MaterialTheme(
-        colors = colors,
+        colorScheme = colors,
         typography = Typography,
         shapes = Shapes,
         content = content
