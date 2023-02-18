@@ -20,11 +20,13 @@ fun RootNavigationGraph(navController: NavHostController) {
 }
 
 object Graph {
-    const val ROOT = "root_graph"
-    const val MAIN = "main_graph"
-    const val MAIN_HOME = "main_home_graph"
-    const val MAIN_DASHBOARD = "main_dashboard_graph"
-    const val MAIN_SETTING = "main_setting_graph"
-    const val DETAIL = "detail_graph"
-    const val CREATE = "create_graph"
+    const val ROOT = "graph_root"
+    const val MAIN = "graph_main"
+    const val MAIN_HOME = "main_home"
+    const val MAIN_DASHBOARD = "graph_main_dashboard"
+    const val MAIN_SETTING = "graph_main_setting"
+    const val CREATE_ROOT = "graph_create_root"
+    const val CREATE = "graph_create"
+    const val DETAIL_ROOT = "graph_detail_root"
+    const val DETAIL = "graph_detail"
 }

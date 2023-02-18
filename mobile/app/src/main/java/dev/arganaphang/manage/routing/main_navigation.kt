@@ -1,9 +1,13 @@
 package dev.arganaphang.manage.routing
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
+import dev.arganaphang.manage.ui.screen.create.CreateScreen
+import dev.arganaphang.manage.ui.screen.detail.DetailScreen
 import dev.arganaphang.manage.ui.screen.main.dashboard.DashboardFragment
 import dev.arganaphang.manage.ui.screen.main.home.HomeFragment
 import dev.arganaphang.manage.ui.screen.main.setting.SettingFragment
@@ -16,13 +20,37 @@ fun MainNavGraph(navController: NavHostController) {
         startDestination = Graph.MAIN_HOME
     ) {
         composable(route = Graph.MAIN_HOME) {
-            HomeFragment()
+            HomeFragment(navController)
         }
         composable(route = Graph.MAIN_DASHBOARD) {
-            DashboardFragment()
+            DashboardFragment(navController)
         }
         composable(route = Graph.MAIN_SETTING) {
-            SettingFragment()
+            SettingFragment(navController)
+        }
+        createNavGraph(navController = navController)
+        detailNavGraph(navController = navController)
+    }
+}
+
+fun NavGraphBuilder.createNavGraph(navController: NavHostController) {
+    navigation(
+        route = Graph.CREATE_ROOT,
+        startDestination = Graph.CREATE
+    ) {
+        composable(route = Graph.CREATE) {
+            CreateScreen(navController)
+        }
+    }
+}
+
+fun NavGraphBuilder.detailNavGraph(navController: NavHostController) {
+    navigation(
+        route = Graph.DETAIL_ROOT,
+        startDestination = Graph.DETAIL
+    ) {
+        composable(route = Graph.DETAIL) {
+            DetailScreen(navController)
         }
     }
 }
