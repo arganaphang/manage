@@ -1,5 +1,6 @@
 package dev.arganaphang.manage.ui.screen.main.home
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,15 +20,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dev.arganaphang.manage.R
 import dev.arganaphang.manage.routing.Graph
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
-fun HomeFragment(navController: NavHostController = rememberNavController()) {
+fun HomeFragment(navController: NavHostController = rememberAnimatedNavController()) {
+
+    navController.graph.hierarchy.forEach { a -> println(a.route) }
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(

@@ -1,11 +1,14 @@
+@file:OptIn(ExperimentalAnimationApi::class)
+
 package dev.arganaphang.manage.routing
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.navigation
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.navigation
 import dev.arganaphang.manage.ui.screen.create.CreateScreen
 import dev.arganaphang.manage.ui.screen.detail.DetailScreen
 import dev.arganaphang.manage.ui.screen.main.dashboard.DashboardFragment
@@ -14,7 +17,7 @@ import dev.arganaphang.manage.ui.screen.main.setting.SettingFragment
 
 @Composable
 fun MainNavGraph(navController: NavHostController) {
-    NavHost(
+    AnimatedNavHost(
         navController = navController,
         route = Graph.MAIN,
         startDestination = Graph.MAIN_HOME

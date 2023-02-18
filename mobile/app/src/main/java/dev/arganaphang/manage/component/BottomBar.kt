@@ -17,7 +17,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import dev.arganaphang.manage.routing.Graph
@@ -62,16 +61,29 @@ fun RowScope.AddItem(
         icon = {
             Icon(
                 imageVector = screen.icon,
-                contentDescription = "Navigation Icon"
+                contentDescription = screen.title
             )
         },
         selected = currentDestination?.hierarchy?.any {
             it.route == screen.route
         } == true,
         onClick = {
-            navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id)
-                launchSingleTop = true
+            when (screen.route) {
+                currentDestination?.route -> {} // Do Nothing to prevent re-render in the same route
+                else -> {
+                    // Prevent Crash or miss navigate
+                    val screenName = if (
+                        screen.route == navController.graph.startDestinationRoute
+                    ) {
+                        Graph.MAIN
+                    } else {
+                        screen.route
+                    }
+                    navController.navigate(screenName) {
+                        popUpTo(navController.graph.startDestinationId)
+                        launchSingleTop = true
+                    }
+                }
             }
         }
     )

@@ -1,5 +1,6 @@
 package dev.arganaphang.manage.ui.screen.main.setting
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,10 +11,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun SettingFragment(navController: NavHostController = rememberNavController()) {
+fun SettingFragment(navController: NavHostController = rememberAnimatedNavController()) {
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
