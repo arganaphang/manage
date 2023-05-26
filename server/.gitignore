@@ -21,3 +21,6 @@ go.work
 # Environment Variable
 .env*
 !.env.example
+
+# Database
+database.db
