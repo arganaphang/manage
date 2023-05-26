@@ -18,7 +18,8 @@ type router struct {
 func setupRouter(app *gin.Engine, service service.Service) {
 	r := router{service}
 	app.GET("/healtz", r.health_get)
-	app.GET("/transactions", r.transaction_get)
+	app.GET("/transactions", r.transaction_get_all)
+	app.GET("/transactions/:id", r.transaction_get_detail)
 	app.POST("/transactions", r.transaction_post)
 }
 
@@ -28,8 +29,23 @@ func (r router) health_get(ctx *gin.Context) {
 	})
 }
 
-func (r router) transaction_get(ctx *gin.Context) {
+func (r router) transaction_get_all(ctx *gin.Context) {
 	results, err := r.Services.Transaction.TransactionAll(ctx)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, map[string]any{
+			"message": "Failed to get Transaction",
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, map[string]any{
+		"message": "Get Transaction",
+		"data":    results,
+	})
+}
+
+func (r router) transaction_get_detail(ctx *gin.Context) {
+	id := ctx.Param("id")
+	results, err := r.Services.Transaction.TransactionGet(ctx, id)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, map[string]any{
 			"message": "Failed to get Transaction",
@@ -65,6 +81,7 @@ func (r router) transaction_post(ctx *gin.Context) {
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, map[string]any{
 			"message": "Failed to create a Transaction",
+			"error":   err.Error(),
 		})
 		return
 	}
