@@ -1,0 +1,23 @@
+version: '3'
+tasks:
+  start:server:
+    cmds:
+      - go run ./cmd/server/main.go
+    silent: true
+  start:command:
+    cmds:
+      - go run ./cmd/command/main.go
+    silent: true
+  test:
+    cmds:
+      - go test ./internal/pkg/... -cover
+      - go test ./pkg/... -cover
+    silent: true
+  migration:up:
+    cmds:
+      - migrate -path ./migrations -database "sqlite3://database.db?query" up
+    silent: true
+  migration:create:
+    cmds:
+      - migrate create -ext sql -dir ./migrations -seq {{.CLI_ARGS}}
+    silent: true
