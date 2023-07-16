@@ -26,10 +26,12 @@ func (r TransactionRepository) TransactionCreate(ctx context.Context, data model
 	return nil
 }
 
-func (r TransactionRepository) TransactionAll(ctx context.Context, limit, offset uint) ([]model.Transaction, *uint, error) {
+func (r TransactionRepository) TransactionAll(ctx context.Context, transactionType model.TransactionType, limit, offset uint) ([]model.Transaction, *uint, error) {
 	stmt := goqu.From(model.TRANSACTION_TABLENAME)
 	// Select Data
-	sql, _, err := stmt.Limit(limit).Offset(offset).ToSQL()
+	sql, _, err := stmt.Where(goqu.Ex{
+		"type": transactionType,
+	}).Limit(limit).Offset(offset).ToSQL()
 	if err != nil {
 		return nil, nil, err
 	}

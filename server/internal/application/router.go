@@ -31,6 +31,14 @@ func (r router) health_get(ctx *gin.Context) {
 }
 
 func (r router) transaction_get_all(ctx *gin.Context) {
+	var trxQuery interface{} = ctx.Request.URL.Query().Get("type")
+	trx, ok := trxQuery.(model.TransactionType)
+	if !ok {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"message": "Transaction type not correct",
+		})
+		return
+	}
 	pgtn, err := pagination.Transform(ctx.Request.URL.Query())
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
@@ -38,7 +46,7 @@ func (r router) transaction_get_all(ctx *gin.Context) {
 		})
 		return
 	}
-	results, total, err := r.Services.Transaction.TransactionAll(ctx, pgtn.Limit, pgtn.Offset)
+	results, total, err := r.Services.Transaction.TransactionAll(ctx, trx, pgtn.Limit, pgtn.Offset)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Failed to get Transaction",

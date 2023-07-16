@@ -5,8 +5,8 @@ type TransactionType string
 const (
 	// ? Database Table Name
 	TRANSACTION_TABLENAME string          = "transactions"
-	TRANSACTION_IN        TransactionType = "TRANSACTION_IN"
-	TRANSACTION_OUT       TransactionType = "TRANSACTION_OUT"
+	TRANSACTION_IN        TransactionType = "in"
+	TRANSACTION_OUT       TransactionType = "out"
 )
 
 type Transaction struct {
