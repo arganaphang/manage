@@ -26,17 +26,33 @@ func (r TransactionRepository) TransactionCreate(ctx context.Context, data model
 	return nil
 }
 
-func (r TransactionRepository) TransactionAll(ctx context.Context) ([]model.Transaction, error) {
-	sql, _, err := goqu.From(model.TRANSACTION_TABLENAME).ToSQL()
+func (r TransactionRepository) TransactionAll(ctx context.Context, limit, offset uint) ([]model.Transaction, *uint, error) {
+	stmt := goqu.From(model.TRANSACTION_TABLENAME)
+	// Select Data
+	sql, _, err := stmt.Limit(limit).Offset(offset).ToSQL()
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	transactions := []model.Transaction{}
 	err = r.DB.Select(&transactions, sql)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return transactions, nil
+	// Count
+	var count struct {
+		Total uint `db:"total"`
+	}
+	countSql, _, err := stmt.Select(
+		goqu.COUNT("*").As("total"),
+	).ToSQL()
+	if err != nil {
+		return nil, nil, err
+	}
+	err = r.DB.Get(&count, countSql)
+	if err != nil {
+		return nil, nil, err
+	}
+	return transactions, &count.Total, nil
 }
 
 func (r TransactionRepository) TransactionGet(ctx context.Context, id string) (*model.Transaction, error) {

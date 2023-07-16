@@ -12,9 +12,9 @@ func Start() error {
 	// ? Set Mode
 	gin.SetMode(config.Get().APPLICATION_ENV)
 	// ? Spawn Gin Engine
-	app := gin.New()
+	app := gin.Default()
 	// ? Setup Proxies
-	app.SetTrustedProxies([]string{"127.0.0.1"})
+	app.SetTrustedProxies([]string{"0.0.0.0"})
 	// ? Setup Dependecies
 	db, err := setupDatabase()
 	if err != nil {
