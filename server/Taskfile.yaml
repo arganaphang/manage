@@ -1,6 +1,11 @@
 version: '3'
 tasks:
+  pre:
+    cmds:
+      - find . -type f -name database.db -exec rm {} \;
+    silent: true
   start:server:
+    deps: [pre]
     cmds:
       - go run ./cmd/server/main.go
     silent: true

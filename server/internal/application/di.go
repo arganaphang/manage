@@ -9,7 +9,7 @@ import (
 )
 
 func setupDatabase() (*sqlx.DB, error) {
-	return sqlx.Connect("sqlite3", "./database.db")
+	return sqlx.Connect("sqlite3", "database.db")
 }
 
 func setupRepository(db *sqlx.DB) repository.Repository {
