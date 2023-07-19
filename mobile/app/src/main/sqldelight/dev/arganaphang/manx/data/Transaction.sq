@@ -1,0 +1,26 @@
+import java.util.Date;
+import dev.arganaphang.manx.entity.TransactionEnum;
+
+CREATE TABLE transactions (
+  id INTEGER PRIMARY KEY NOT NULL,
+  title TEXT NOT NULL,
+  amount INTEGER NOT NULL,
+  type TEXT AS TransactionEnum.TransactionType NOT NULL,
+  createdAt INTEGER AS Date NOT NULL
+);
+
+findAll:
+SELECT *
+FROM transactions;
+
+findByType:
+SELECT *
+FROM transactions WHERE type = ?;
+
+findOneByID:
+SELECT *
+FROM transactions WHERE id = ?;
+
+insert:
+INSERT INTO transactions(id, title, amount, type, createdAt)
+VALUES (?, ?, ?, ?, ?);
